@@ -4,29 +4,7 @@ jiaxin="jiaxin"
 demo_project="jiaxin_demo"
 
 declare -A map=()
-function getdir(){
-    for element in `ls $1`
-    do  
-        dir_or_file=$1"/"$element
-       
-result=$(echo $dir_or_file | grep "${jiaxin}")
-if [[ "$result" != "" ]]
-then
 
-  result2=$(echo $element | grep "${demo_project}")
-if [[ "$result2" != "" ]]
-then
-  continue;
-fi
- echo  "*****************************************"
- echo  $element"--start--pull"
-  cd $element && git pull && cd ..
- echo  -e $element"--end--pull\n"
-
-fi
-
-    done
-}
 
 while : 
 do
@@ -62,8 +40,22 @@ if [[ "$selectProject" != "" ]]
 then  
 if [[ "$selectProject" == "all" ]]
 then
- getdir 
- 
+  echo  "***all project pull start**"
+   sleep 3s
+ for key in ${!map[@]}  
+do  
+  if [[ "$key" == "0" ]]
+then
+  continue;
+  else
+   echo  "******************************"
+   echo  ${map[$key]}"--start--pull"
+   cd ${map[$key]} && git pull && cd ..
+   echo  -e ${map[$key]}"--end--pull\n"
+fi
+done  
+   echo  "***all project pull completed**"
+    sleep 4s
  else
    echo  $selectProject"--start--pull"
    cd $selectProject && git pull && cd ..
