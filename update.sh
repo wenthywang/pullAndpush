@@ -32,6 +32,7 @@ fi
 fi
 
   done
+echo 'e、exit'
 
 read project
 
@@ -63,8 +64,16 @@ done
    sleep 7s
 fi
 else
+ if [[ "$project" == "e" ]]
+then
+echo '------------------------THANK YOU----------------------'
+  break;
+else
+
    echo "#####error input#####"
    echo "#####请重新输入#####"
+   sleep 4s
+   fi
 fi
 done
 
